@@ -1,8 +1,8 @@
 library(tidyverse)
 
-Data_setup = function(data = "data/Data_1.csv"){
+Data_setup = function(data = "data/Data_PWT.csv"){
 
-Init_Data = read_csv("data/Data_1.csv")
+Init_Data = read_csv("data/Data_PWT.csv")
 
 Top_GDP = Init_Data %>%
     select(rgdpo, countrycode, year) %>%
