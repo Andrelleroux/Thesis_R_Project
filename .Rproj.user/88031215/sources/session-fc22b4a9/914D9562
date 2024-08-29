@@ -3,7 +3,7 @@
     "path": "~/Masters_2024_stuff/Thesis stuff/Thesis_R_Project/README.rmd",
     "project_path": "README.rmd",
     "type": "r_markdown",
-    "hash": "3568030712",
+    "hash": "808549726",
     "contents": "",
     "dirty": false,
     "created": 1724950380399.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "29,7",
-        "scrollLine": "17"
+        "cursorPosition": "28,25",
+        "scrollLine": "14"
     },
     "folds": "",
-    "lastKnownWriteTime": 1724951042,
+    "lastKnownWriteTime": 1724951624,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1724951042950,
+    "last_content_update": 1724951624558,
     "read_only": false,
     "read_only_alternatives": []
 }

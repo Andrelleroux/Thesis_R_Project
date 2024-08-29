@@ -9,23 +9,24 @@ output:
 Setup of GitHub to check code and graphs
 
 
-```{r}
+```{r, results='hide', message=FALSE, warning=FALSE}
 
 rm(list = ls()) # Clean your environment:
 gc() # garbage collection - It can be useful to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.
 library(tidyverse)
 list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
 ```
+
 Regression table for the pooled OLS of the dataset
 
-```{r}
+```{r, results = 'asis', message=FALSE, warning=FALSE}
 Pool <- Pooled_OLS()
 Pool
 ```
 
 Regression table for a two way fixed effects model
 
-```{r}
+```{r, results = 'asis', message=FALSE, warning=FALSE}
 Two_Way <- Two_Way_Fix_Eff()
 Two_Way
 ```
