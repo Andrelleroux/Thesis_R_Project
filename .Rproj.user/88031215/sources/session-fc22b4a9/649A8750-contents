@@ -28,7 +28,10 @@ Pool_OLS_reg <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Model_Data, mod
 
 stargazer(Pool_OLS_reg, "html", out = "pooled_table.html")
 
+Two_Way_Data <- Model_Data %>% na.omit() 
 
+Two_Way_Fixed_Mod <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Two_Way_Data, model = "within", effect = "twoways")
 
+stargazer(Two_Way_Fixed_Mod, "html", out = "Two_Way_table.html")
 
 
