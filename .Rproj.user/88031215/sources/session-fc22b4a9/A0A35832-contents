@@ -21,5 +21,5 @@ Two_Way_Fix_Eff <- function(){
 
     Two_Way_Fixed_Mod <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Model_Data, model = "within", effect = "twoways")
 
-    stargazer(Two_Way_Fixed_Mod, "html", out = "Two_Way_table.html")
+    stargazer(Two_Way_Fixed_Mod, "text", out = "Two_Way_table.html")
 }

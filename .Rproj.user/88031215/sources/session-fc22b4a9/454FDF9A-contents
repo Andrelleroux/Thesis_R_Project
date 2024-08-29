@@ -20,5 +20,5 @@ Pooled_OLS <- function(){
 
     Pool_OLS_reg <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Model_Data, model = "pooling")
 
-    stargazer(Pool_OLS_reg, "html", out = "pooled_table.html")
+    stargazer(Pool_OLS_reg, "text", out = "pooled_table.html")
 }

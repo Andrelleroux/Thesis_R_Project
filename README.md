@@ -66,7 +66,7 @@ Pool <- Pooled_OLS()
 
     ## 
     ## % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-    ## % Date and time: Thu, Aug 29, 2024 - 19:04:06
+    ## % Date and time: Thu, Aug 29, 2024 - 19:07:39
     ## \begin{table}[!htbp] \centering 
     ##   \caption{} 
     ##   \label{} 
@@ -104,14 +104,14 @@ Pool <- Pooled_OLS()
     ## \end{table} 
     ## 
     ## % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-    ## % Date and time: Thu, Aug 29, 2024 - 19:04:06
+    ## % Date and time: Thu, Aug 29, 2024 - 19:07:39
     ## \begin{table}[!htbp] \centering 
     ##   \caption{} 
     ##   \label{} 
     ## \begin{tabular}{@{\extracolsep{5pt}} c} 
     ## \\[-1.8ex]\hline 
     ## \hline \\[-1.8ex] 
-    ## html \\ 
+    ## text \\ 
     ## \hline \\[-1.8ex] 
     ## \end{tabular} 
     ## \end{table}
@@ -122,7 +122,7 @@ Pool
 
     ##  [1] ""                                                                                                                
     ##  [2] "% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com"
-    ##  [3] "% Date and time: Thu, Aug 29, 2024 - 19:04:06"                                                                   
+    ##  [3] "% Date and time: Thu, Aug 29, 2024 - 19:07:39"                                                                   
     ##  [4] "\\begin{table}[!htbp] \\centering "                                                                              
     ##  [5] "  \\caption{} "                                                                                                  
     ##  [6] "  \\label{} "                                                                                                    
@@ -160,14 +160,14 @@ Pool
     ## [38] "\\end{table} "                                                                                                   
     ## [39] ""                                                                                                                
     ## [40] "% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com"
-    ## [41] "% Date and time: Thu, Aug 29, 2024 - 19:04:06"                                                                   
+    ## [41] "% Date and time: Thu, Aug 29, 2024 - 19:07:39"                                                                   
     ## [42] "\\begin{table}[!htbp] \\centering "                                                                              
     ## [43] "  \\caption{} "                                                                                                  
     ## [44] "  \\label{} "                                                                                                    
     ## [45] "\\begin{tabular}{@{\\extracolsep{5pt}} c} "                                                                      
     ## [46] "\\\\[-1.8ex]\\hline "                                                                                            
     ## [47] "\\hline \\\\[-1.8ex] "                                                                                           
-    ## [48] "html \\\\ "                                                                                                      
+    ## [48] "text \\\\ "                                                                                                      
     ## [49] "\\hline \\\\[-1.8ex] "                                                                                           
     ## [50] "\\end{tabular} "                                                                                                 
     ## [51] "\\end{table} "
@@ -189,7 +189,7 @@ Two_Way <- Two_Way_Fix_Eff()
 
     ## 
     ## % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-    ## % Date and time: Thu, Aug 29, 2024 - 19:04:07
+    ## % Date and time: Thu, Aug 29, 2024 - 19:07:40
     ## \begin{table}[!htbp] \centering 
     ##   \caption{} 
     ##   \label{} 
@@ -224,14 +224,14 @@ Two_Way <- Two_Way_Fix_Eff()
     ## \end{table} 
     ## 
     ## % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-    ## % Date and time: Thu, Aug 29, 2024 - 19:04:07
+    ## % Date and time: Thu, Aug 29, 2024 - 19:07:40
     ## \begin{table}[!htbp] \centering 
     ##   \caption{} 
     ##   \label{} 
     ## \begin{tabular}{@{\extracolsep{5pt}} c} 
     ## \\[-1.8ex]\hline 
     ## \hline \\[-1.8ex] 
-    ## html \\ 
+    ## text \\ 
     ## \hline \\[-1.8ex] 
     ## \end{tabular} 
     ## \end{table}
@@ -242,7 +242,7 @@ Two_Way
 
     ##  [1] ""                                                                                                                
     ##  [2] "% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com"
-    ##  [3] "% Date and time: Thu, Aug 29, 2024 - 19:04:07"                                                                   
+    ##  [3] "% Date and time: Thu, Aug 29, 2024 - 19:07:40"                                                                   
     ##  [4] "\\begin{table}[!htbp] \\centering "                                                                              
     ##  [5] "  \\caption{} "                                                                                                  
     ##  [6] "  \\label{} "                                                                                                    
@@ -277,14 +277,14 @@ Two_Way
     ## [35] "\\end{table} "                                                                                                   
     ## [36] ""                                                                                                                
     ## [37] "% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com"
-    ## [38] "% Date and time: Thu, Aug 29, 2024 - 19:04:07"                                                                   
+    ## [38] "% Date and time: Thu, Aug 29, 2024 - 19:07:40"                                                                   
     ## [39] "\\begin{table}[!htbp] \\centering "                                                                              
     ## [40] "  \\caption{} "                                                                                                  
     ## [41] "  \\label{} "                                                                                                    
     ## [42] "\\begin{tabular}{@{\\extracolsep{5pt}} c} "                                                                      
     ## [43] "\\\\[-1.8ex]\\hline "                                                                                            
     ## [44] "\\hline \\\\[-1.8ex] "                                                                                           
-    ## [45] "html \\\\ "                                                                                                      
+    ## [45] "text \\\\ "                                                                                                      
     ## [46] "\\hline \\\\[-1.8ex] "                                                                                           
     ## [47] "\\end{tabular} "                                                                                                 
     ## [48] "\\end{table} "
