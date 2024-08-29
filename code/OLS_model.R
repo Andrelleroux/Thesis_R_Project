@@ -1,7 +1,8 @@
 library(tidyverse)
 library(broom)
-library(plm)
 library(stargazer)
+
+OLS_model <- function(){
 
 Init_Data <- read_csv("data/Data_PWT.csv")
 
@@ -22,13 +23,10 @@ OLS_reg <- Model_Data %>%
     group_by(countrycode) %>%
     group_map(~ broom::tidy(lm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = .x)))
 
-Pool_OLS_reg <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Model_Data, model = "pooling")
-
 #stargazer(OLS_reg, "html", out = "OLS_table.html")
 
-stargazer(Pool_OLS_reg, "html", out = "pooled_table.html")
+OLS_reg
 
-
-
+}
 
 
