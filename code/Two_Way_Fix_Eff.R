@@ -16,10 +16,10 @@ Two_Way_Fix_Eff <- function(){
         mutate(Labour_Ratio = emp/pop) %>%
         filter(countrycode %in% Countries) %>%
         mutate(l_cn = log(cn)) %>%
-        select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn, ctfp) %>%
+        select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn) %>%
         na.omit()
 
-    Two_Way_Fixed_Mod <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Model_Data, model = "within", effect = "twoways")
+    Two_Way_Fixed_Mod <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn, data = Model_Data, model = "within", effect = "twoways")
 
     stargazer(Two_Way_Fixed_Mod, "text", out = "Two_Way_table.html")
 }

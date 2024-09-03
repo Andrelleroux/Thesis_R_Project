@@ -17,11 +17,11 @@ Model_Data <- Init_Data %>%
     mutate(Labour_Ratio = emp/pop) %>%
     filter(countrycode %in% Countries) %>%
     mutate(l_cn = log(cn)) %>%
-    select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn, ctfp)
+    select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn)
 
 OLS_reg <- Model_Data %>%
     group_by(countrycode) %>%
-    group_map(~ broom::tidy(lm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = .x)))
+    group_map(~ broom::tidy(lm(ln_Gdp_pc ~ l_pop + hc + l_cn, data = .x)))
 
 #stargazer(OLS_reg, "html", out = "OLS_table.html")
 

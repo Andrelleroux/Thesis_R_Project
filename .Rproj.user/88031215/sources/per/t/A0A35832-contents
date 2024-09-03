@@ -2,7 +2,7 @@ library(tidyverse)
 library(plm)
 library(stargazer)
 
-Pooled_OLS <- function(){
+Two_Way_Fix_Eff <- function(){
     Init_Data <- read_csv("data/Data_PWT.csv")
 
     Countries <- c("ARG", "AUS", "AUT", "BEL", "BRA", "CAN", "CHE", "COL",
@@ -16,9 +16,10 @@ Pooled_OLS <- function(){
         mutate(Labour_Ratio = emp/pop) %>%
         filter(countrycode %in% Countries) %>%
         mutate(l_cn = log(cn)) %>%
-        select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn, ctfp)
+        select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn) %>%
+        na.omit()
 
-    Pool_OLS_reg <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Model_Data, model = "pooling")
+    Two_Way_Fixed_Mod <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn, data = Model_Data, model = "within", effect = "twoways")
 
-    stargazer(Pool_OLS_reg, "text", out = "pooled_table.html")
+    stargazer(Two_Way_Fixed_Mod, "text", out = "Two_Way_table.html")
 }

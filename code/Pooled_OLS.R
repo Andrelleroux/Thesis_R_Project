@@ -16,9 +16,9 @@ Pooled_OLS <- function(){
         mutate(Labour_Ratio = emp/pop) %>%
         filter(countrycode %in% Countries) %>%
         mutate(l_cn = log(cn)) %>%
-        select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn, ctfp)
+        select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn)
 
-    Pool_OLS_reg <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn + ctfp, data = Model_Data, model = "pooling")
+    Pool_OLS_reg <- plm(ln_Gdp_pc ~ l_pop + hc + l_cn, data = Model_Data, model = "pooling")
 
     stargazer(Pool_OLS_reg, "text", out = "pooled_table.html")
 }

@@ -9,12 +9,13 @@ Countries <- c("ARG", "AUS", "AUT", "BEL", "BRA", "CAN", "CHE", "COL",
 
 Model_Data <- Init_Data %>%
     filter(countrycode %in% Countries) %>%
-    select(countrycode, year, rgdpe) %>%
-    spread(countrycode, rgdpe) %>%
+    mutate(ln_GDP = log(rgdpe/pop)) %>%
+    select(countrycode, year, ln_GDP) %>%
+    spread(countrycode, ln_GDP) %>%
     select(-year)
 
 Cor_Mat <- cor(Model_Data)
-Cor_Mat <- apply(Cor_Mat, c(1, 2), function(x) x^15)
+Cor_Mat <- apply(Cor_Mat, c(1, 2), function(x) x^3)
 
 diag(Cor_Mat) <- 0
 
