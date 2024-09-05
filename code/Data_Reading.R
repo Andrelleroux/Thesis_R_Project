@@ -1,6 +1,6 @@
 library(tidyverse)
 
-Data_setup = function(data = "data/Data_PWT.csv"){
+Data_setup = function(data_loc = "data/Data_PWT.csv"){
 
 Init_Data = read_csv("data/Data_PWT.csv")
 
@@ -11,12 +11,20 @@ Top_GDP = Init_Data %>%
     top_n(30, rgdpo) %>%
     pull(countrycode)
 
-GDP_Data = Init_Data %>%
-    mutate(l_rgdpo = log(rgdpo)) %>%
-    select(l_rgdpo, countrycode, year) %>%
-    filter(!is.na(l_rgdpo), countrycode %in% Top_GDP) %>%
-    spread(countrycode, l_rgdpo)
+Countries <- c("ARG", "AUS", "AUT", "BEL", "BRA", "CAN", "CHE", "COL",
+               "DEU", "DNK", "ESP", "FIN", "FRA", "GBR", "IND", "ITA", "JPN",
+               "MEX", "NGA", "NLD", "NOR", "PHL", "SWE", "THA", "TUR",
+               "USA", "VEN", "ZAF")
 
-return(GDP_Data)
+Model_Data <- Init_Data %>%
+    mutate(ln_Gdp_pc = log(rgdpe/pop)) %>%
+    mutate(l_pop = log(pop)) %>%
+    mutate(Labour_Ratio = emp/pop) %>%
+    filter(countrycode %in% Countries) %>%
+    mutate(l_cn = log(cn)) %>%
+    select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn) %>%
+    filter(year <= 2014)
+
+return(Model_Data)
 
 }

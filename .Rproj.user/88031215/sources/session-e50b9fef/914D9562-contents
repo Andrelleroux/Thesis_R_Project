@@ -20,15 +20,23 @@ list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.
 Regression table for the pooled OLS of the dataset
 
 ```{r, results = 'asis', message=FALSE, warning=FALSE}
-Pool <- Pooled_OLS()
-Pool
+Model_Data <- Data_setup(data_loc = "data/Data_PWT.csv")
+
+OLS_Mods <- OlsonNames(data = Model_Data)
+
+```
+
+
+```{r, results = 'asis', message=FALSE, warning=FALSE}
+Pool <- Pooled_OLS(data = Model_Data)
+stargazer(Pool, "text", out = "pooled_table.html")
 ```
 
 Regression table for a two way fixed effects model
 
 ```{r, results = 'asis', message=FALSE, warning=FALSE}
-Two_Way <- Two_Way_Fix_Eff()
-Two_Way
+Two_Way <- Two_Way_Fix_Eff(data = Model_Data)
+stargazer(Two_Way, "text", out = "Two_Way_table.html")
 ```
 
 

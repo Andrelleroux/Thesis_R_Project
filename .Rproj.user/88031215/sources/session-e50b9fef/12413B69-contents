@@ -1,10 +1,15 @@
 library(tidyverse)
-library(broom)
-library(stargazer)
 
-OLS_model <- function(){
+Data_setup = function(data_loc = "data/Data_PWT.csv"){
 
-Init_Data <- read_csv("data/Data_PWT.csv")
+Init_Data = read_csv("data/Data_PWT.csv")
+
+Top_GDP = Init_Data %>%
+    select(rgdpo, countrycode, year) %>%
+    filter(!is.na(rgdpo)) %>%
+    filter(year == 1950) %>%
+    top_n(30, rgdpo) %>%
+    pull(countrycode)
 
 Countries <- c("ARG", "AUS", "AUT", "BEL", "BRA", "CAN", "CHE", "COL",
                "DEU", "DNK", "ESP", "FIN", "FRA", "GBR", "IND", "ITA", "JPN",
@@ -17,16 +22,9 @@ Model_Data <- Init_Data %>%
     mutate(Labour_Ratio = emp/pop) %>%
     filter(countrycode %in% Countries) %>%
     mutate(l_cn = log(cn)) %>%
-    select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn)
+    select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn) %>%
+    filter(year <= 2014)
 
-OLS_reg <- Model_Data %>%
-    group_by(countrycode) %>%
-    group_map(~ broom::tidy(lm(ln_Gdp_pc ~ l_pop + hc + l_cn, data = .x)))
-
-#stargazer(OLS_reg, "html", out = "OLS_table.html")
-
-OLS_reg
+return(Model_Data)
 
 }
-
-
