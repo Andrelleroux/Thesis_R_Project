@@ -10,21 +10,21 @@ Model_Testing <- function(Pool_Mod = Pool, Two_Way_Mod = Two_way, OLS = OLS_Mods
                    "USA", "VEN", "ZAF")
 
     Test_Data <- Init_Data %>%
-        mutate(ln_Gdp_pc = log(rgdpe/pop)) %>%
+        mutate(ln_Gdp = log(rgdpe)) %>%
         mutate(l_pop = log(pop)) %>%
         mutate(Labour_Ratio = emp/pop) %>%
         filter(countrycode %in% Countries) %>%
         mutate(l_cn = log(cn)) %>%
-        select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn) %>%
+        select(countrycode, year, ln_Gdp, l_pop, hc, l_cn) %>%
         filter(year > 2014)
 
     pred_Pool <- predict(Pool_OLS_reg, newdata = Test_Data)
 
-    Pool_RMSE <- sqrt(mean((Test_Data$ln_Gdp_pc - pred_Pool)^2))
+    Pool_RMSE <- sqrt(mean((Test_Data$ln_Gdp - pred_Pool)^2))
 
     pred_Two_Way <- predict(Two_Way_Fixed_Mod, newdata = Test_Data)
 
-    Two_Way_RMSE <- sqrt(mean((Test_Data$ln_Gdp_pc - pred_Two_Way)^2))
+    Two_Way_RMSE <- sqrt(mean((pred_Two_Way - Test_Data$ln_Gdp)^2))
 
     all_residuals <- c()
 
@@ -35,7 +35,7 @@ Model_Testing <- function(Pool_Mod = Pool, Two_Way_Mod = Two_way, OLS = OLS_Mods
 
         predictions <- predict(model, newdata = country_data)
 
-        residuals <- country_data$ln_Gdp_pc - predictions
+        residuals <- country_data$ln_Gdp - predictions
 
         all_residuals <- c(all_residuals, residuals)
     }

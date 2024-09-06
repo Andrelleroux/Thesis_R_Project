@@ -29,7 +29,7 @@ OLS_Mods <- OlsonNames(data = Model_Data)
 
 ```{r, results = 'asis', message=FALSE, warning=FALSE}
 Pool <- Pooled_OLS(data = Model_Data)
-stargazer(Pool, "text", out = "pooled_table.html")
+stargazer(Pool_OLS_reg, "text", out = "pooled_table.html")
 ```
 
 Regression table for a two way fixed effects model
