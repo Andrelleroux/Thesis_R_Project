@@ -26,4 +26,20 @@ Model_Testing <- function(Pool_Mod = Pool, Two_Way_Mod = Two_way, OLS = OLS_Mods
 
     Two_Way_RMSE <- sqrt(mean((Test_Data$ln_Gdp_pc - pred_Two_Way)^2))
 
+    all_residuals <- c()
+
+    for (i in length(OLS_reg)) {
+        model <- OLS_reg[[i]]
+
+        country_data <- Test_Data %>% filter(countrycode == Countries[i])
+
+        predictions <- predict(model, newdata = country_data)
+
+        residuals <- country_data$ln_Gdp_pc - predictions
+
+        all_residuals <- c(all_residuals, residuals)
+    }
+
+    OLS_RMSE <- sqrt(mean((all_residuals)^2))
+
 }

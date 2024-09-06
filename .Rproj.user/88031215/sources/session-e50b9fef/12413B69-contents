@@ -17,12 +17,12 @@ Countries <- c("ARG", "AUS", "AUT", "BEL", "BRA", "CAN", "CHE", "COL",
                "USA", "VEN", "ZAF")
 
 Model_Data <- Init_Data %>%
-    mutate(ln_Gdp_pc = log(rgdpe/pop)) %>%
+    mutate(ln_Gdp = log(rgdpe)) %>%
     mutate(l_pop = log(pop)) %>%
     mutate(Labour_Ratio = emp/pop) %>%
     filter(countrycode %in% Countries) %>%
     mutate(l_cn = log(cn)) %>%
-    select(countrycode, year, ln_Gdp_pc, l_pop, hc, l_cn) %>%
+    select(countrycode, year, ln_Gdp, l_pop, hc, l_cn) %>%
     filter(year <= 2014)
 
 return(Model_Data)
