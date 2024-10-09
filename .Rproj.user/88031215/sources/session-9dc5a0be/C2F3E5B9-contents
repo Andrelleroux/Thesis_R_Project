@@ -1,0 +1,76 @@
+---
+title: "Maths"
+output: pdf_document
+date: "2024-10-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+## GDP Prediction using Backpropagation
+
+In this model, the GDP of a specific country is predicted based on the GDP of other countries, excluding the country's own GDP. The prediction for country \(i\) at time \(t\) is denoted as \(\hat{GDP}_i(t)\), and the inputs consist of the GDPs of other countries.
+
+The model computes the prediction as follows:
+
+\[
+\hat{GDP}_i(t) = f\left( \sum_{j=1, j \neq i}^{n} w_{ij} \cdot GDP_j(t-1) + b_i \right)
+\]
+
+Where:
+- \(w_{ij}\) represents the weight assigned to the GDP of country \(j\) for predicting country \(i\)'s GDP.
+- \(b_i\) is the bias term for country \(i\).
+- \(f(\cdot)\) is the activation function, specifically the ReLU (Rectified Linear Unit), defined as:
+
+\[
+f(x) = \max(0, x)
+\]
+
+### Backpropagation
+
+To minimize the error in predictions, we update the weights \(w_{ij}\) and biases \(b_i\) using backpropagation. The error \(E\) at each iteration is calculated as:
+
+\[
+E = \frac{1}{2} \sum_i \left( \hat{GDP}_i(t) - GDP_i(t) \right)^2
+\]
+
+The weight update rule using gradient descent is:
+
+\[
+w_{ij}^{(new)} = w_{ij}^{(old)} - \eta \frac{\partial E}{\partial w_{ij}}
+\]
+
+Similarly, the bias update rule is:
+
+\[
+b_i^{(new)} = b_i^{(old)} - \eta \frac{\partial E}{\partial b_i}
+\]
+
+Where \(\eta\) is the learning rate.
+
+By iterating through multiple training epochs, the model adjusts the weights and biases to minimize the prediction error.
+
+The weight matrix \( W \) is a square matrix of dimension \( n \times n \), where \( n \) is the number of countries. Each element \( w_{ij} \) in the matrix represents the weight assigned to the GDP of country \( j \) when predicting the GDP of country \( i \). Since a country's own GDP is not used to predict itself, the diagonal elements of the matrix are set to zero:
+
+\[
+W = \begin{pmatrix}
+0 & w_{12} & w_{13} & \dots & w_{1n} \\
+w_{21} & 0 & w_{23} & \dots & w_{2n} \\
+w_{31} & w_{32} & 0 & \dots & w_{3n} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+w_{n1} & w_{n2} & w_{n3} & \dots & 0 \\
+\end{pmatrix}
+\]
+
+This matrix \( W \) satisfies the following condition:
+
+\[
+w_{ii} = 0 \quad \text{for all } i = 1, 2, \dots, n
+\]
+
+Where:
+- \( w_{ij} \) denotes the weight connecting the GDP of country \( j \) to the prediction of country \( i \)'s GDP.
+- \( n \) is the total number of countries.
