@@ -8,19 +8,18 @@ date: "2024-10-08"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
 ## GDP Prediction using Backpropagation
 
-In this model, the GDP of a specific country is predicted based on the GDP of other countries, excluding the country's own GDP. The prediction for country \(i\) at time \(t\) is denoted as \(\hat{GDP}_i(t)\), and the inputs consist of the GDPs of other countries.
+In this model, the GDP of a specific country is predicted based on the GDP of other countries, excluding the country's own GDP. The prediction for country \(i\) at time \(t\) is denoted as \(\hat{GDP}_i(t)\), and the inputs consist of the GDP's of other countries.
 
 The model computes the prediction as follows:
 
 \[
-\hat{GDP}_i(t) = f\left( \sum_{j=1, j \neq i}^{n} w_{ij} \cdot GDP_j(t-1) + b_i \right)
+\hat{GDP}_i(t) = f\left( \sum_{j=1, j \neq i}^{n} w_{ij} \cdot GDP_j(t) + b_i \right)
 \]
 
-Where:
+### Where:
 - \(w_{ij}\) represents the weight assigned to the GDP of country \(j\) for predicting country \(i\)'s GDP.
 - \(b_i\) is the bias term for country \(i\).
 - \(f(\cdot)\) is the activation function, specifically the ReLU (Rectified Linear Unit), defined as:
@@ -34,7 +33,7 @@ f(x) = \max(0, x)
 To minimize the error in predictions, we update the weights \(w_{ij}\) and biases \(b_i\) using backpropagation. The error \(E\) at each iteration is calculated as:
 
 \[
-E = \frac{1}{2} \sum_i \left( \hat{GDP}_i(t) - GDP_i(t) \right)^2
+E = \frac{1}{2N} \sum_{i=1}^{t} \left( \hat{GDP}_i(t) - GDP_i(t) \right)^2
 \]
 
 The weight update rule using gradient descent is:
@@ -71,6 +70,6 @@ This matrix \( W \) satisfies the following condition:
 w_{ii} = 0 \quad \text{for all } i = 1, 2, \dots, n
 \]
 
-Where:
-- \( w_{ij} \) denotes the weight connecting the GDP of country \( j \) to the prediction of country \( i \)'s GDP.
-- \( n \) is the total number of countries.
+### Where:
+- The variable \( w_{ij} \) denotes the weight connecting the GDP of country \( j \) to the prediction of country \( i \)'s GDP.
+- The variable \( n \) is the total number of countries.
