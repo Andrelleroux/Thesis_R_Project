@@ -1,0 +1,186 @@
+---
+output:
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: true
+bibliography: Tex/ref.bib
+csl: Tex/harvard-stellenbosch-university.csl
+header-includes:
+  - \usepackage{graphicx}
+  - \usepackage{geometry}
+  - \geometry{margin=2cm}
+  - \usepackage{setspace}
+  - \setstretch{1.15}
+  - \usepackage{float}
+  - \usepackage{multicol}
+  - \setlength{\columnsep}{1cm}
+---
+  
+\pagenumbering{roman}
+
+\begin{titlepage}
+  \centering
+  \includegraphics[width=0.5\textwidth]{Stellenbosch_University_New_Logo.png} \par
+  \vspace{2cm}
+  {\scshape\Huge An Investigation Into the Performance and Alternatives to Machine Learning Techniques in an Economic Context \par}
+  \vspace{2cm}
+  {\Large\itshape Andre le Roux (22568948) \par}
+  \vfill
+  {\large 6 January 2024 \par}
+\end{titlepage}
+ 
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\pagenumbering{arabic}
+
+# Introduction {-}
+
+# Literature Review {-}
+
+# Data {-}
+
+This paper will use the Penn World Table (PWT) data, version 10.01, that was published on the 23rd of January 2023. This is a data set released by the University of Groningin on a semi-regular basis to provide data on levels of output, input, income and productivity, covering 183 countries between 1950 and 2019. This allows for a well-respected and standardised * data set with which to perform analysis on different techniques for forecasting economic variables.
+
+Due to the length of the data (70 years) and the width of the data (183 countries), there are several extensive gaps in available information across the 52 variables in the data. To minimise the missing values in the data set the following subset is used. Of the countries with no missing GDP data throughout the time frame, the top 30 is selected based on GDP. Pakistan and the Democratic Republic of the Congo is removed from the sample due to missing values in other key variables. This leaves us with 28 remaining countries for the study.
+
+```{r, results='asis', echo=FALSE}
+cat("
+\\begin{multicols}{4}
+\\begin{itemize}
+  \\item Argentina
+  \\item Australia
+  \\item Austria
+  \\item Belgium
+  \\item Brazil
+  \\item Canada
+  \\item Switzerland
+\\end{itemize}
+
+\\begin{itemize}
+  \\item Colombia
+  \\item Germany
+  \\item Denmark
+  \\item Spain
+  \\item Finland
+  \\item France
+  \\item Great Britain
+\\end{itemize}
+
+\\begin{itemize}
+  \\item India
+  \\item Italy
+  \\item Japan
+  \\item Mexico
+  \\item Nigeria
+  \\item Netherlands
+  \\item Norway
+\\end{itemize}
+
+\\begin{itemize}
+  \\item Phillipines
+  \\item Sweden
+  \\item Thailand
+  \\item Turkey
+  \\item USA
+  \\item Venezuela
+  \\item South Africa
+\\end{itemize}
+\\end{multicols}
+")
+```
+
+The key variables that were selected are the following from the PWT data set. GDP was taken as calculated output side Gross Domestic Product at chained Purchasing Price Parity (PPP) in millions of US dollars. Population is measured in millions, and a human capital index based on the countries average years of schooling and the returns to the said year of schooling. Finally, capital stock is taken at current PPP in millions of US dollars. GDP, population and capital stock is logged so as to reduce skewness and reduce the effect of outliers.
+
+The final transformation is to split the data into a training and testing set so as to adequately train the model on available data and then test the trained model on independent data. The training set is taken as all data from 1950 until 2013, while all data from 2014 until 2019 makes up the test set for the models.
+
+# Methodology {-}
+
+The ensemble model that will be used in this paper will consist of * four different models:
+
+\begin{itemize}
+  \item Ordinary Least Squares (OLS) models.
+  \item Two Way Fixed Effects model.
+  \item Autoregressive Integrated Moving Average (ARIMA) models.
+  \item Boosted Tree Model (GBM).
+\end{itemize}
+ 
+## OLS Models {-}
+
+The first model that we will discuss is an individual level OLS model for each country. An identical model is fit to the 63 rows for each country in the training data set, this model has the following structure: 
+
+$$
+GDP = \beta_0 + \beta_1 \text{HumanCapital} + \beta_2 \text{CapitalStock} + \beta_3 \text{Population} + \epsilon
+$$
+This is a simple individual level analysis of the GDP of each country, it is a form that is historically popular with economists to display interpretable results on economic relationships. However, it can also be used for forecasting. This model will be tested on the test data set to gauge performance, but model predictions will also be collected for each training GDP value. This allows us to use the predictions of the OLS model in the ensemble model.
+
+## Two Way Fixed Effects Model {-}
+
+This model follows a panel data approach by including all countries into a singular model and then including variables for each specific country and year to control for differences across countries and time periods in the data. Compared to the OLS model, this approach drastically increases the data available to the model to optimise around. However, the assumption of linear relationships remain from the OLS model with the added assumption that the impacts of key variables are consistent across countries. The model is built on the following formula.
+
+$$
+GDP_{it} = \beta_0 + \beta_1 \text{HumanCapital}_{it} + \beta_2 \text{CapitalStock}_{it} + \beta_3 \text{Population}_{it} + \gamma_i + \delta_t + \epsilon_{it}
+$$
+
+Where:
+\begin{itemize}
+  \item \( \gamma_i \) captures the individual (country-specific) fixed effects,
+  \item \( \delta_t \) captures the year fixed effects.
+\end{itemize}
+
+This model is then also tested on the test data and predictions are calculated for the training set to use in the ensemble model.
+
+## ARIMA Models {-}
+
+The country specific ARIMA models were specified using the forecast package in R. This package allows us to have different ARIMA specifications based on the specific series of each country. This allows each country to have the optimal level of differencing, auto-regressive terms and moving average terms. This optimal specification is chosen based on the minimum corrected Akaike Information Criterion (AICc) that adapts the AIC to be a better predictor of fit at smaller sample sizes.
+
+An example of the optimal ARIMA(0,1,1) model for South Africa is shown below:
+
+$$
+Y_t = c + Y_{t-1} + \theta_1 \epsilon_{t-1} + \epsilon_t
+$$
+
+Where:
+\begin{itemize}
+  \item c is the drift term (constant trend over time).
+  \item \( \theta_1 \) is the moving average (MA) coefficient.
+  \item \( \epsilon_t \) is the white noise error term.
+\end{itemize}
+
+## Boosted Tree Model {-}
+
+Boosted tree models improve prediction by iteratively explaining remaining variation in the data. A relatively simple decision tree is fitted to the GDP data, then another simple decision tree is modeled on the variation between the prediction of the previous model and the actual values. These models that build on one another can, when optimised fully, accurately map non-linear relationships between variables. This approach to modeling statistical relationships has become increasingly popular in machine learning modeling *. In order to get the optimal boosted tree model that performs well, but does not overfit the data, the following approach is followed.
+
+The data is split into an 80% training set and a 20% test set. The model is trained using 10-fold cross-validation to ensure that the model is not overfitted on the training data. The function used to measure the performance of the decision trees and to optimise the model is the Root Mean Squared Error (RMSE). The following hyperparameters are included in the model:
+
+\begin{itemize}
+  \item \textbf{Number of trees}: The number of trees that are used to iteratively model residual variation.
+  \item \textbf{Depth of the trees}: The number of splits on variables that can be made by each tree to fit the data.
+  \item \textbf{Learning rate}: How much each tree can contribute to the final model. The smaller the learning rate, the smaller the probability of overfitting the data or missing optimal solutions.
+   \item \textbf{Minimum Loss Reduction}: The minimum reduction in the RMSE for a split in the decision tree to be included.
+    \item \textbf{Minimum data in a leaf}: What is the minimum number of observations that can be split on by a decision tree.
+     \item \textbf{Subsampling rate}: The percentage of the training sample that the tree is exposed to. The lower the value, the lower the chance of overfitting the total training sample.
+\end{itemize}
+
+In order to optimise the hyperparameters a grid search is performed of hundreds of combinations of these hyperparameters and the combination that best minimises the RMSE is selected as the optimal combination for this model. The ability of this model to conform to underlying patterns in existing data and map on residual variance makes it a popular choice. However, it is by definition without theoretical or interpretable structure as it transforms to the specifics of the data it is exposed to. 
+
+The question then becomes whether the introduction of additional models, more commonly used in economics to map and understand economic relationships, can add to the forecasting power of the boosted tree model. For example, economic theory has found that past GDP growth rates are often good predictors of future GDP growth rates. So would the inclusion of economic theory, through an ARIMA model, improve the forecasting of the boosted tree model? This is tested by building an ensemble model and comparing the performance of this model to the boosted tree model.
+
+## Ensemble Model {-}
+
+
+
+# Results {-}
+
+
+# Discussion {-}
+
+
+# Conclusion {-}
+
+
+## Bibliography for Data {-}
+

@@ -22,6 +22,7 @@ Model_Data <- Init_Data %>%
     mutate(Labour_Ratio = emp/pop) %>%
     filter(countrycode %in% Countries) %>%
     mutate(l_cn = log(cn)) %>%
+    mutate(hc = ifelse(is.na(hc), 1.15172, hc)) %>%
     select(countrycode, year, ln_Gdp, l_pop, hc, l_cn) %>%
     filter(year <= 2014)
 

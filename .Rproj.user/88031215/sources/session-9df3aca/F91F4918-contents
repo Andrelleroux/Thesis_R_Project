@@ -1,0 +1,77 @@
+---
+title: "Changes in Baby Names Over Time"
+author: "André le Roux"
+date: "June 2024"
+# date: "`r Sys.Date()`"
+bibliography: Tex/ref.bib       # Do not edit: Keep this naming convention and location.
+output:
+  pagedown::html_paged:
+    # template: wp_paged.html
+    # css: ['wp.css', 'wp-fonts.css', 'wp-page.css']
+    css: ["Template/default-fonts-Texevier.css", "Template/default-page-Texevier.css", "Template/default-Texevier.css"]
+    csl: Template/harvard-stellenbosch-university.csl # referencing format used.
+    template: ["Template/paged-Texevier.html"]
+
+    toc: true
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    self_contained: TRUE
+abstract: |
+    This report will analyse the changes in the names of babies between 1910 and 2014. This allows for
+    more relatable naming conventions when naming children's toys. I find that the time period for which a
+    name is relevant is decreasing and that certain names have a more consistent presence, while other are fleeting.
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+pacman::p_load(modelsummary, gt, knitr, kableExtra, tidyverse)
+
+setwd("C:/Users/andre/OneDrive/Documents/Masters_2024_stuff/Data_Science/Data_Science_Exam/22568948/Question_1")
+list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
+```
+
+\newpage
+
+# Data {-}
+
+This report will use yearly data collected on the names of babies born in each state in the United States of America (USA).
+This data is combined to form a national collection of baby names per year. I then use this database to run analysis on 
+the naming convention of babies in the USA.
+
+# Analysis  {-}
+
+The first section of analysis is conducted on the staying power of baby names in the USA. This is done by calculating the Spearman rank correlation for the top 25 names in a year and the ranking of those names three years later. A high value represents a high correlation between the top 25 names in a year and the top 25 names three years later.
+
+##### Figure 1: {-}
+
+```{r }
+#First we extract the data from the RDS files and combine them into one dataset
+Baby_names_df <- Data_Reading("data/Baby_Names_By_US_State.rds")
+
+```
+
+```{r}
+#Next we calculate and plot the correlation in Baby Names
+plot_corr <- Corr_plot(Baby_names_df)
+plot_corr
+```
+
+From _figure 1_ we can see that the staying power of names over a three year period was very high, ranging between 0.85 and 1 from 1910 to 1930. After this the staying power decrease substantially over time, we can see from the fitted line that there is a substantial decrease of the rank correlation of baby names at a 95% confidence level. The trend has also become substantially more erratic, with some years having rank correlations of above 0.8, while 2007 had a rank correlation of only 0.345.
+
+This suggests that the most common names are changing more and more between three year cycles. In order to adapt to this I suggest that the names of toys should be focused on popular names from the near past in order to capture the benefits of relatable naming conventions. The next section of research will analyse the staying power of specific names rather than names in general.
+
+In _figure 1_ we analysed the staying power of the most popular names across time, however we did not look at the staying power of individual names across time. This is what I do in the following figure, I look at the top 15 most popular names across the entire sample and analyse their individual density plots across the time frame. 
+
+##### Figure 2: {-}
+
+```{r}
+#We can then plot the density of the most popular names over time
+plot_ridge <- Ridge_plot(Baby_names_df)
+plot_ridge
+```
+
+When looking at _figure 2_ we can see that different names have very different distributions between 2010 and 2014. For example, the name William has a relatively normal distribution, which suggests a consistent level across time, while the name James has a distribution with two distinct peaks, suggesting relevance in the earlier and later parts of the sample. From this emerges different strategies that can be used when naming toys. The risk averse and longer lasting choice would be to go for a consistent name such as Richard, while the more risky and short term strategy would be to go for a name that is very prevalent at certain points in time, such as Robert.   
+
+# Conclusion {-}
+
+Toy companies should be focusing more on short term fads when it comes to naming conventions, but have the option to go with a more or less timeless name dpending on the toy.

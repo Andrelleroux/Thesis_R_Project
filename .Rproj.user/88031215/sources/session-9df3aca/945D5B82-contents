@@ -1,0 +1,46 @@
+
+
+forecast_gdp_model <- function(data_matrix = reshaped_data, learning_rate = 0.01, epochs = 100, folds = 10) {
+    num_years <- nrow(data_matrix)
+    num_countries <- ncol(data_matrix)
+    
+    # Initialize weights with He initialization
+    weights <- matrix(rnorm(num_countries^2, mean = 0, sd = sqrt(2 / num_countries)), ncol = num_countries)
+    diag(weights) <- 0 # Ensure diagonal weights are zero
+    
+    relu <- function(x) pmax(0, x)
+    relu_derivative <- function(x) ifelse(x > 0, 1, 0)
+    
+    # Cross-validation setup
+    fold_size <- floor(num_years / folds)
+    fold_indices <- split(1:num_years, cut(1:num_years, breaks = folds, labels = FALSE))
+    
+    # Training
+    for (fold in seq_along(fold_indices)) {
+        test_idx <- fold_indices[[fold]]
+        train_idx <- setdiff(1:num_years, test_idx)
+        
+        train_data <- data_matrix[train_idx, ]
+        test_data <- data_matrix[test_idx, ]
+        
+        for (epoch in 1:epochs) {
+            predictions <- relu(train_data %*% weights)
+            errors <- train_data - predictions
+            
+            # Gradient calculation
+            gradient_component <- errors * relu_derivative(train_data * weights)
+            gradients <- t(train_data) * gradient_component
+            
+            # Update weights
+            weights <- weights - learning_rate * gradients
+        }
+        
+        # Evaluate on test set
+        test_predictions <- relu(test_data %*% weights)
+        test_loss <- mean((test_data - test_predictions)^2)
+        cat("Fold", fold, "Test Loss:", test_loss, "\n")
+    }
+    
+    list(weights = weights)
+}
+results <- forecast_gdp_model(GDP_matrix)

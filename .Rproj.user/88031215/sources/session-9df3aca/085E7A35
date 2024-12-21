@@ -1,27 +1,27 @@
 {
-    "id": "73BCC088",
-    "path": "~/Masters_2024_stuff/Thesis stuff/Thesis_R_Project/code/Model_Testing.R",
-    "project_path": "code/Model_Testing.R",
+    "id": "085E7A35",
+    "path": "~/Masters_2024_stuff/Thesis stuff/Thesis_R_Project/code/GBM_mod.R",
+    "project_path": "code/GBM_mod.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1725293448791.0,
+    "created": 1733926545862.0,
     "source_on_save": false,
-    "relative_order": 6,
+    "relative_order": 5,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "39,52",
-        "scrollLine": "0"
+        "cursorPosition": "32,9",
+        "scrollLine": "15"
     },
     "folds": "",
-    "lastKnownWriteTime": 1725657675,
+    "lastKnownWriteTime": 1734542364,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1725657675171,
+    "last_content_update": 1734542364600,
     "read_only": false,
     "read_only_alternatives": []
 }
