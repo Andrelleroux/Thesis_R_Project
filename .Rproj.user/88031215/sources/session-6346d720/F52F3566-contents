@@ -1,0 +1,33 @@
+library(tidyverse)
+library(broom)
+library(stargazer)
+
+OLS_model <- function(data = Model_Data){
+
+    year_range <- 1950:2014
+
+ols_results <- data %>%
+    group_by(countrycode) %>%
+    summarise(
+        model = list(lm(ln_Gdp ~ l_pop + hc + l_cn, data = cur_data())),
+        .groups = "drop"
+    )
+
+#stargazer(OLS_reg, "html", out = "OLS_table.html")
+
+fitted_values_OLS <- ols_results %>%
+    mutate(
+        fitted_OLS = map(model, ~ fitted(.x)),
+        n_obs = map_int(model, ~ length(fitted(.x)))
+    ) %>%
+    unnest(fitted_OLS) %>%
+    group_by(countrycode) %>%
+    mutate(
+        year = year_range[1:n_obs]
+    ) %>%
+    select(countrycode, year, fitted_OLS)
+
+
+}
+
+

@@ -1,0 +1,38 @@
+[Tune-x] 1: n.trees=333; interaction.depth=11; n.minobsinnode=12; shrinkage=0.256
+Loading required package: mlr
+Warning: package 'mlr' was built under R version 4.3.3
+Loading required package: ParamHelpers
+Warning: package 'ParamHelpers' was built under R version 4.3.3
+[Tune] Started tuning learner regr.gbm for parameter set:
+                     Type len Def      Constr Req Tunable Trafo
+n.trees           integer   -   -   10 to 500   -    TRUE     -
+interaction.depth integer   -   -     1 to 15   -    TRUE     -
+n.minobsinnode    integer   -   -     5 to 50   -    TRUE     -
+shrinkage         numeric   -   - 0.01 to 0.3   -    TRUE     -
+With control class: TuneControlMBO
+Imputation value: Inf
+[Tune-x] 1: n.trees=337; interaction.depth=10; n.minobsinnode=19; shrinkage=0.088
+[Tune-y] 1: rmse.test.rmse=0.0676355; time: 0.1 min
+[Tune-x] 2: n.trees=110; interaction.depth=7; n.minobsinnode=9; shrinkage=0.148
+[Tune-y] 2: rmse.test.rmse=0.0796257; time: 0.0 min
+[Tune-x] 3: n.trees=279; interaction.depth=5; n.minobsinnode=35; shrinkage=0.298
+[Tune-y] 3: rmse.test.rmse=0.0813173; time: 0.0 min
+[Tune-x] 4: n.trees=27; interaction.depth=3; n.minobsinnode=36; shrinkage=0.209
+[Tune-y] 4: rmse.test.rmse=0.1729457; time: 0.0 min
+[Tune-x] 5: n.trees=236; interaction.depth=11; n.minobsinnode=18; shrinkage=0.128
+[Tune-y] 5: rmse.test.rmse=0.0684784; time: 0.0 min
+[Tune-x] 6: n.trees=213; interaction.depth=6; n.minobsinnode=46; shrinkage=0.159
+[Tune-y] 6: rmse.test.rmse=0.0896688; time: 0.0 min
+[Tune-x] 7: n.trees=290; interaction.depth=8; n.minobsinnode=29; shrinkage=0.193
+[Tune-y] 7: rmse.test.rmse=0.0711726; time: 0.0 min
+[Tune-x] 8: n.trees=182; interaction.depth=2; n.minobsinnode=43; shrinkage=0.0535
+[Tune-y] 8: rmse.test.rmse=0.1666590; time: 0.0 min
+[Tune-x] 9: n.trees=64; interaction.depth=7; n.minobsinnode=15; shrinkage=0.0107
+[Tune-y] 9: rmse.test.rmse=0.7018248; time: 0.0 min
+[Tune-x] 10: n.trees=461; interaction.depth=1; n.minobsinnode=7; shrinkage=0.175
+[Tune-y] 10: rmse.test.rmse=0.1529939; time: 0.0 min
+[Tune-x] 11: n.trees=471; interaction.depth=15; n.minobsinnode=31; shrinkage=0.0382
+[Tune-y] 11: rmse.test.rmse=0.0804380; time: 0.1 min
+[Tune-x] 12: n.trees=401; interaction.depth=10; n.minobsinnode=49; shrinkage=0.26
+[Tune-y] 12: rmse.test.rmse=0.0788264; time: 0.1 min
+[Tune-x] 13: n.trees=428; interaction.depth=14; n.minobsinnode=12; shrinkage=0.237
