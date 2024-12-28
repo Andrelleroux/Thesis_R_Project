@@ -64,7 +64,7 @@ Model_Testing <- function(Pool_Mod = Pool, Two_Way_Mod = Two_way, OLS = OLS_Mods
         all_residuals_ARIMA <- c(all_residuals_ARIMA, residuals)
     }
 
-    ARIMA_RMSE <- sqrt(mean(all_residuals^2))
+    ARIMA_RMSE <- sqrt(mean(all_residuals_ARIMA^2))
 
     Test_Data_mlrMBO <- Test_Data %>%
         mutate(countrycode = as.factor(countrycode))

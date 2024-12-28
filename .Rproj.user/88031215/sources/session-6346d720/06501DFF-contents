@@ -39,7 +39,13 @@ header-includes:
 
 # Introduction {-}
 
+
+
 # Literature Review {-}
+
+Lit Review Intro
+
+Paul Samuelson, a winner of the Nobel Memorial Prize in Economics, described econometrics in the following way, "Econometrics may be defined as the quantitative analysis of actual economic phenomena based on the concurrent development of theory and observation, related by appropriate methods of inference" [@samuelson1954report]. This accurately represents the 
 
 # Data {-}
 
@@ -191,18 +197,67 @@ With the modeling framework and ensemble methodology established, the next step 
 
 # Results {-}
 
-```{r}
-library(stargazer)
-
-ZAF_OLS <- ols_results %>% filter(countrycode == "ZAF") %>% select(model)
-ZAF_ARIMA <- arima_models %>% filter(countrycode == "ZAF") %>% select(model)
-
-stargazer(ZAF_OLS, ZAF_ARIMA)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("bin/OLS_coef.png")
 ```
 
+Average of all OLS coefficients and p-values across countries.
+Very high R-squared for the OLS models on the training data, could be due to to running on levels rather than growth rates
+Human capital and log population insignificant at the 10% level for both OLS and TWFE models.
+Capital stock significant at the 5% level in the OLS and TWFE model.
+Lower R-squared in the TWFE model, different impact of variables on different countries, capital intensive vs human capital intensive economies.
 
-# Discussion {-}
+Not all ARIMA variables are used in every model, simply the average of the models where they are used specifically.
+Negative values on AR2, AR3, MA1 and MA2. Only MA1 not significant at the 5% significance level.
 
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("bin/Hyper_Table.png")
+```
+
+Two ensemble models are then optimised using the mlrMBO package, which allows for Bayesian optimisation of hyperparameters. Care is taken in terms of overfitting the data, a significant threat of GBM's. This is done by 10-fold cross-validation and an optimised shrinkage parameter, which controls the additional impact that a tree can have, decreasing bias.
+
+The optimal tree depth for both models is 15 with a minimum observation limit of 5. The optimal shrinkage parameter of the Emsemble model is lower than the general GBM, while also having a lower optimal number of trees.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("bin/RMSE_Table_1.png")
+```
+
+The above table includes two measures of the accuracy for the five models that were used on the testing sample from 2014 until 2019. The RMSE that has a heightened sensitivity to individual predictions that are from the actual values. The other measure, MAPE, is a measure of relative performance throughout the sample without preference for larger mistakes.
+
+When comparing the results of the OLS model with the TWFE and ARIMA models we see that the OLS model has a relatively low RMSE and a high MAPE, while the TWFE and ARIMA models have a relatively high RMSE, but a low MAPE.
+This suggets that the OLS predicts better throughout the model withour making drastically wrong predictions, whereas the TWFE and ARIMA models performs very well as some points while performing badly at other points.
+
+The general GBM performs better than all the previous models in both the RMSE and the MAPE as it can very accurately represent the data when allowed to be complex enough. Given the context of this analysis the best single model is an optimised GBM. When a GBM is then used to optimise between the predictions of the 4 seperate models we get an optimised ensemble model for predicting GDP. This optimised ensemble GBM performs better than the general GBM, suggesting that the inclusion of the previous models into an ensemble model can improve the prediction from just a base GBM.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("bin/MAPE_Countries.png")
+```
+
+In order the analyse the accuracy of each model across the 28 countries in the data set we plot the above graphs for each of the five models. These graphs show the average MAPE scores across the model testing period from 2014 until 2019 for each country. It is important to note that the scale of the y-axis differs for each graph. This was done to be able to see more detail in the graphs of countries with significantly smaller MAPE scores. When looking at the y-axis we can see that the ensemble model tends to performs the best. 
+
+The bad accuracy of predicting the GDP for Venezuela during the 2014-2019 time frame is due to a country specific structural break that started from the negative impact of low oil prices in 2014, this alongside hyperinflation from the excessive printing of money led to a drastic change in GDP outlook. These external shocks cause weak forecasting accuracy in relation to Venezuela.
+
+The ARIMA model performs rather accurately across all countries, except for Venezuela. The impact of the large difference in predictions in Venezuela explains the high RMSE of the ARIMA model, while maintaining a relatively low MAPE score. 
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("bin/MAPE_Years.png")
+```
+
+This figure shows the accuracy of the forecasting of the different models across the different years of the testing period. It should again be noted that all graphs are on different y-axis scales as it allows us to look more carefully at smaller details in models with lower MAPE scores.
+
+Throughout the models the general trend appears to be weakening accuracy the years move further away from the training sample. This makes sense as the environment and relationships of 2014 data would be closer to the training sample environment than the 2019 data. Thus, as time goes on the relationships between variables might alter and the forecasts weaken.
+
+The one outlier from this is the accurate prediction of the 2018 year by the general GBM model. 
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("bin/Ensemble_VIP.png")
+```
+
+This figure displays the relative importance scores of the different models in the ensemble GBM model, normalised to be a percentage, this can give us an estimation of the contribution of each model to the ensemble model. There are very small contributions by the OLS (0.0762%) and TWFE (0.5323%) models to the accuracy of the ensemble model. The improvement from the general GBM model to the ensmeble model can be attributed primarily to the inclusion of the ARIMA model into the ensemble model.
+
+The variable importance of the ARIMA model (24.26%) is due to this model predicting data in a structure that is unattainable by the method of the general GBM model (75.13% importance). Specifically, it stems from the ability of the ARIMA model to predict future GDP from GDP values in the near past. Something that the GBM model is not set up to do. This provides insight into the potential for statistical models that are founded in economic theory to improve forecasting accuracy if the economic relationships are uniquely different from the allowed modelling structure of complex machine learning models.
+
+Ek wil nog iets bysit oor die k-density van die actual vs predicted values tussen al die modelle, maar ongelukkig nog nie daarby uitgekom nie.
 
 # Conclusion {-}
 

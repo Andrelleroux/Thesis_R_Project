@@ -80,9 +80,21 @@ final_learner_Ens <- setHyperPars(learner, par.vals = list(
 
 final_model_Ens <- mlr::train(final_learner, task)
 
-# Step 8: Train the final model with optimal hyperparameters
-#final_learner <- setHyperPars(learner, par.vals = optimized_model$x)
-#final_model <- train(final_learner, task)
+VIP_model <- getLearnerModel(final_model_Ens)
+#importance <- summary(VIP_model)
+importance <- as.data.frame(summary(VIP_model))
+
+ggplot(importance, aes(x = reorder(var, rel.inf), y = rel.inf)) +
+    geom_bar(stat = "identity", fill = "skyblue") +
+    coord_flip() +  # Flip coordinates for better readability
+    labs(
+        title = "Variable Importance Plot of Ensemble Model",         # Add a title
+        x = "Models",                            # Label for x-axis
+        y = "Importance Score"                      # Label for y-axis
+    ) +
+    theme_minimal() +                             # Use a clean theme
+    theme(axis.text.y = element_text(size = 10))  # Adjust y-axis label size
+
 
 # Step 9: Evaluate on the test data
 Model_Data_mlrMBO <- Model_Data %>%
