@@ -3,7 +3,7 @@
 \contentsline {section}{Data}{1}{section*.4}%
 \contentsline {section}{Methodology}{2}{section*.5}%
 \contentsline {subsection}{OLS Models}{2}{section*.6}%
-\contentsline {subsection}{Two Way Fixed Effects Model}{2}{section*.7}%
+\contentsline {subsection}{Two Way Fixed Effects Model}{3}{section*.7}%
 \contentsline {subsection}{ARIMA Models}{3}{section*.8}%
 \contentsline {subsection}{Boosted Tree Model}{3}{section*.9}%
 \contentsline {subsection}{Ensemble Model}{4}{section*.10}%

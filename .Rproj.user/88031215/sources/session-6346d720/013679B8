@@ -1,0 +1,28 @@
+{
+    "id": "013679B8",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1735488108116.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "id": "934a75ae45fb4af5ad531cfd2283c92b",
+        "name": "global_importance",
+        "title": "global_importance",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1858299739704,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1735488108116,
+    "read_only": false,
+    "read_only_alternatives": []
+}

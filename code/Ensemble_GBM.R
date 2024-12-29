@@ -109,3 +109,24 @@ predictions <- predict(final_model, newdata = test_data)
 performance_Ens <- performance(predictions, measures = rmse)
 
 print(performance_Ens)
+
+#SHapley Values
+
+predict_function <- function(model, newdata) {
+    predict(model, newdata = newdata)$data$response
+}
+
+train_data_Shap <- train_data %>% dplyr::select(-ln_Gdp)
+
+predictor <- Predictor$new(
+  model = final_model_Ens,
+  data = train_data_Shap,
+  y = train_data$ln_Gdp,
+  predict.function = predict_function
+)
+
+global_importance <- FeatureImp$new(predictor, loss = "rmse")
+
+plot(global_importance)
+
+Plot_VIP_EnsGBM <- global_importance$results

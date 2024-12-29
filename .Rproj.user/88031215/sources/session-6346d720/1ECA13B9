@@ -3,7 +3,7 @@
     "path": "~/Masters_2024_stuff/Thesis stuff/Thesis_R_Project/Tex/ref.bib",
     "project_path": "Tex/ref.bib",
     "type": "text",
-    "hash": "0",
+    "hash": "764494414",
     "contents": "",
     "dirty": false,
     "created": 1734932596329.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "79,25",
-        "scrollLine": "63"
+        "cursorPosition": "46,32",
+        "scrollLine": "30"
     },
     "folds": "",
-    "lastKnownWriteTime": 1735290478,
+    "lastKnownWriteTime": 1735478734,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1735290478593,
+    "last_content_update": 1735478734227,
     "read_only": false,
     "read_only_alternatives": []
 }

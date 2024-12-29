@@ -94,3 +94,65 @@
   year={1998},
   publisher={American Economic Association}
 }
+
+@article{barro1991economic,
+  title={Economic growth in a cross section of countries},
+  author={Barro, Robert J},
+  journal={The quarterly journal of economics},
+  volume={106},
+  number={2},
+  pages={407--443},
+  year={1991},
+  publisher={MIT Press}
+}
+
+@article{mankiw1992contribution,
+  title={A contribution to the empirics of economic growth},
+  author={Mankiw, N Gregory and Romer, David and Weil, David N},
+  journal={The quarterly journal of economics},
+  volume={107},
+  number={2},
+  pages={407--437},
+  year={1992},
+  publisher={MIT Press}
+}
+
+@misc{barro1995sala,
+  title={Sala-I-Martin, X.(1995), Economic Growth},
+  author={Barro, Robert J},
+  year={1995},
+  publisher={McGraw-Hill, New York}
+}
+
+@article{solow1957technical,
+  title={Technical change and the aggregate production function},
+  author={Solow, Robert M},
+  journal={The review of Economics and Statistics},
+  volume={39},
+  number={3},
+  pages={312--320},
+  year={1957},
+  publisher={JSTOR}
+}
+
+@article{acemoglu2007disease,
+  title={Disease and development: the effect of life expectancy on economic growth},
+  author={Acemoglu, Daron and Johnson, Simon},
+  journal={Journal of political Economy},
+  volume={115},
+  number={6},
+  pages={925--985},
+  year={2007},
+  publisher={The University of Chicago Press}
+}
+
+@article{breiman2001statistical,
+  title={Statistical modeling: The two cultures (with comments and a rejoinder by the author)},
+  author={Breiman, Leo},
+  journal={Statistical science},
+  volume={16},
+  number={3},
+  pages={199--231},
+  year={2001},
+  publisher={Institute of Mathematical Statistics}
+}
